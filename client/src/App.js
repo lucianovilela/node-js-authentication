@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import Recover from "./components/auth/Recover";
-import { Provider as AuthProvider } from "./context/AuthContext";
+import { InfoProvider } from "./context/InfoContext"
 const App = () => {
   return (
-    <AuthProvider>
+    <InfoProvider>
       <Router>
         <Switch>
           <Route exact path="/" component={SignIn} />
@@ -16,7 +16,7 @@ const App = () => {
           {/* <Route path="*" component={ResolveAuth} /> */}
         </Switch>
       </Router>
-    </AuthProvider>
+    </InfoProvider>
   );
 };
 export default App;
