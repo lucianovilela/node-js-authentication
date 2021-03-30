@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 const ContextAuth = createContext();
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from 'AsyncStorage';
 
 export default ContextAuth;
 const InfoProvider = ({ children }) => {
