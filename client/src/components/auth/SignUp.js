@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -9,6 +10,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+
+import ContextAuth from "../../context/InfoContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +35,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const state = useContext(ContextAuth);
+  const onSubmit = (event)=>{
+      const target = event.target;
+      const params = {
+          firstName : target.firstName.value,
+          lastName : target.firstName.value,
+          email : target.email.value,
+          password : target.password.value,
+          confirmPassword : target.passwordConfirm.value
+      };
+
+      state.action.signUp(params);
+      event.preventDefault();
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -43,7 +61,8 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate 
+        onSubmit ={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -99,7 +118,7 @@ export default function SignUp() {
                 name="confirmPassword"
                 label="Confirm Password"
                 type="password"
-                id="password"
+                id="passwordConfirm"
                 autoComplete="current-password"
               />
             </Grid>
