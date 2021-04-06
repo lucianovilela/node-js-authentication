@@ -2,7 +2,7 @@ import axios from "axios";
 import { env_config } from "./constants";
 
 const instance = axios.create({
-  baseURL: env_config[process.env.NODE_ENV],
+  baseURL:  "https://8000-red-ape-ziujmcup.ws-us03.gitpod.io",
 });
 
 instance.interceptors.request.use(
@@ -12,7 +12,7 @@ instance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
+    //config.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
     return config;
   },
   (err) => {

@@ -31,15 +31,25 @@ const InfoProvider = ({ children }) => {
                         userToken: null,
                         user: null,
                     };
-            }
+                case "SET_MSG":
+                    return {
+                        ...prevState,
+                        msg : action.payload,
+                    };                    
+                case "CLEAR_MSG":
+                    return {
+                        ...prevState,
+                        msg:null,
+                    };                    
+
+                }
         },
         {
             isLoading: true,
             isSignout: true,
             user: {},
             userToken: null,
-            info: undefined,
-            lista: []
+            msg:null
         }
     );
 
@@ -50,20 +60,25 @@ const InfoProvider = ({ children }) => {
                 url: "/api/signin",
                 data: { email, password }
             })
-                .then(response => console.log);
+            .then(response => console.log)
+            .catch(err => dispatch({type:'SET_MSG', payload:{msg:'erro ao chamar servidor'}}))
 
         },
         signOut: async () => {
 
         },
-        signUp: async ({firstName, lastName, email, password, confirmPassword }) => {
+        signUp: async ({ firstName, lastName, email, password, confirmPassword }) => {
             instance({
                 method: "POST",
                 url: "/api/signup",
                 data: { firstName, lastName, email, password, confirmPassword }
             })
-                .then(response => console.log);
-
+            .then(response => console.log(response))
+            .catch(err => {
+                console.log(err); 
+                dispatch({type:'SET_MSG', payload:{msg:"error"}})
+            })
+            
         },
         fechingURL: async (url, token) => {
             dispatch({ type: "FETCHING_URL_START" })
@@ -72,6 +87,9 @@ const InfoProvider = ({ children }) => {
                 .then(result => dispatch({ type: "FETCHING_URL_END", payload: result }))
         },
 
+        clearMsg : async ()=>{
+            dispatch({type:"CLEAR_MSG"})
+        }
 
     }));
     return (
