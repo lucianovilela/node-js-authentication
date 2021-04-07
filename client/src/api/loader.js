@@ -2,7 +2,7 @@ import axios from "axios";
 import { env_config } from "./constants";
 
 const instance = axios.create({
-  baseURL:  "https://8000-red-ape-ziujmcup.ws-us03.gitpod.io",
+  baseURL:  "https://8000-copper-owl-ia7ilk0i.ws-us03.gitpod.io/",
 });
 
 instance.interceptors.request.use(

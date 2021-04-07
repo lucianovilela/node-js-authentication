@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useContext } from 'react';
+
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -12,6 +14,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import ContextAuth from "../../context/InfoContext";
 
 function Copyright() {
   return (
@@ -48,7 +51,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const state = useContext(ContextAuth);
 
+  const onSubmit = (event)=>{
+      const target = event.target;
+      const params = {
+          email : target.email.value,
+          password : target.password.value,
+      };
+
+      state.action.signIn(params);
+      event.preventDefault();
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -59,7 +73,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit ={onSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
